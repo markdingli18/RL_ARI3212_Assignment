@@ -3,7 +3,7 @@
   \providecommand\BibTeX{{
     \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
 \settopmatter{printacmref=false}
-\RequirePackage{biblatex}
+\RequirePackage[backend=biber, sorting=none]{biblatex} 
 \addbibresource{sample-base.bib}
 \usepackage{amsmath}
 \usepackage{listings}
@@ -11,12 +11,16 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
+\setcopyright{none}
+\settopmatter{printacmref=false} 
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
 
 \begin{document}
 
 \pagestyle{empty}
 
-\title{Solving Control Problems using Reinforcement Learning }
+\title{\huge Solving Control Problems using Reinforcement Learning}
 
 \author{Mark Dingli}
 \affiliation{
@@ -28,44 +32,44 @@
 \section{Introduction}
 
 \subsection{What is Reinforcement Learning?}
-Reinforcement learning (RL), a branch of machine learning, enables an AI-driven agent to learn via a trial-and-error approach, utilizing feedback from its actions. This method involves rewarding desirable behaviors and penalizing undesirable ones. The agent engages with its environment, undertaking various actions with the primary objective of maximizing its cumulative reward [1]. Central to RL is the concept of an agent dynamically interacting with an environment to optimize its decision-making process. Over time, the agent refines its behaviors based on environmental feedback, employing advanced techniques such as temporal difference learning and Q-learning. This iterative learning process allows the agent to enhance its performance and decision-making capabilities continuously. 
+Reinforcement learning (RL) is branch of machine learning that enables AI-driven agents with the capability to learn through trial and error by making use of feedback from their own actions. This method involves rewarding positive behaviors and penalizing negative ones. The agent engages with its environment, undertaking various actions with the primary objective of maximizing its total reward. Over time, the agent refines its behaviors based on environmental feedback, employing advanced techniques such as Q-learning. This iterative learning process allows the agent to enhance its performance and decision-making capabilities continuously \cite{ref1}.
 
 \subsection{How does Reinforcement Learning differ from other ML approaches?}
 
-Machine Learning (ML) encompasses a variety of methodologies, each with distinct learning mechanisms. Reinforcement Learning (RL) is a unique branch of ML where learning is driven by the consequences of actions, either favorable or unfavorable, rather than relying on a dataset. Unlike supervised learning, which utilizes labeled data to train models [2], RL operates without predefined labels, learning instead from direct interaction with the environment. This approach contrasts with supervised learning, where a 'teacher' provides correct outputs for training. Another ML methodology is unsupervised learning. Unsupervised learning employs unlabeled data to identify patterns or structures, functioning without guidance on the desired output [2]. In RL, the absence of direct input necessitates the development of an optimal policy or strategy to achieve specific goals. Essentially, while supervised and unsupervised learning are geared towards predictions or classifications based on data, RL is focused on training agents to make sequential decisions within an environment, aiming to maximize a cumulative reward.
+Machine Learning (ML) includes a diverse range of approaches, each characterized by unique learning mechanisms. Within this spectrum, Reinforcement Learning (RL) emerges as a distinct subset of ML, where learning is influenced by the outcomes of actions, either positive or negative, rather than depending on a dataset. Unlike supervised learning, which utilizes labeled data to train models, RL operates without predefined labels, learning instead from direct interaction with the environment. This approach contrasts with supervised learning, where a 'teacher' provides correct outputs for training as can be seen in \cite{ref2}. Another ML technique is unsupervised learning, which uses unlabeled data to detect patterns or structures, operating without any guidance on the expected output, as shown in \cite{ref2}. In RL, the lack of direct input necessitates the development of an optimal policy or strategy to achieve specific goals.  Essentially, while supervised and unsupervised learning aim at predictions or classifications based on data, RL trains agents to make a series of decisions within an environment, with the goal of maximizing a cumulative reward.
 
 \subsection{Differences between Value Based, Policy Based and Actor Critic models.}
 The field of reinforcement learning encompasses various models, each with unique approaches to learning and decision-making. Among these, Value Based, Policy Based, and Actor Critic models stand out due to their distinct methodologies and applications. 
 
 \subsubsection{Value Based Models}
 \hfill \break 
-Value-Based models primarily focus on learning the value or action-value function to derive the optimal policy. These models employ an agent that learns a value function, which estimates the long-term reward associated with each state or state-action pair. The core objective of value-based techniques is to determine the value of states, or to estimate the value of states and actions. This is achieved through the learning of value functions or Q-functions. The agent uses these value function to choose actions that maximise the expected reward.
+ As outlined in \cite{ref3}, value-Based models primarily focus on learning the value or action-value function to derive the optimal policy. In these models, an agent is employed to learn a value function, which estimates the long-term reward linked with each state or state-action pair. The core objective of value-based methods is to determine the value of states, or to estimate the value of states and actions. This is accomplished through the learning of value functions or Q-functions. The agent uses these value function to select actions that maximise the expected reward.
 
 \subsubsection{Policy Based Models}
 \hfill \break 
-Policy-Based models in machine learning diverge from the value function approach, focusing instead on directly learning a policy. These methods entirely avoid the process of learning the values of states or actions. The primary aim of policy-based methods is to directly determine the optimal policy. This policy defines the strategy that an agent should adopt for selecting actions. Typically, the policy is parameterized, and these parameters are iteratively adjusted to optimize the expected return. This approach allows for a more direct route to determining the best action choices, without the intermediary step of value estimation.
+Policy-Based models in machine learning diverge from the value function approach, focusing instead on directly learning a policy. These methods entirely avoid the process of learning the values of states or actions. The primary aim of policy-based methods is to directly determine the optimal policy. This policy defines the strategy that an agent should adopt for selecting actions. Typically, the policy is parameterized, and these parameters are iteratively adjusted to optimize the expected return. This approach allows for a more direct route to determining the best action choices, without the intermediary step of value estimation as detailed in \cite{ref4}.
 
 \subsubsection{Actor Critic Models}
 \hfill \break 
-Actor-Critic based models are a combination of value-based and policy-based methodologies. In these models, an agent simultaneously learns a value function and a policy. This combination leverages the strengths of both value-based and policy-based models. The 'actor' component in these models is responsible for determining the course of action, functioning as a policy model. In contrast, the 'critic' serves as a value model, appraising the actions taken by the actor. The feedback provided by the critic is instrumental in updating the strategies of both the actor and the critic. The learning process for the actor is grounded in the policy gradient method, which focuses on enhancing the policy directly. Meanwhile, the critic's role is to assess the actor's actions by calculating the value function. 
+Actor-Critic based models are a combination of value-based and policy-based methodologies. In these models, an agent simultaneously learns a value and a policy function. This combination leverages the strengths of both value-based and policy-based models. The \textit{'actor'} component in these models is responsible for determining the course of action, functioning as a policy model. In contrast, the \textit{'critic'} serves as a value model, appraising the actions taken by the actor. The feedback provided by the critic is instrumental in refining the strategies of both the actor and the critic itself. The learning process for the actor is grounded in the policy gradient method, which focuses on enhancing the policy directly. Meanwhile, the critic's role is to assess the actor's actions by calculating the value function as described in \cite{ref5}. 
 
 \hfill \break 
 In summary, Value Based models prioritize learning the value of states and actions to make optimal decisions, while Policy Based models focus directly on learning the optimal policy. Actor Critic models blend these approaches, leveraging the strengths of both to create a more robust and dynamic learning process. 
 
 \section{Background}
-This section aims to demonstrate a comprehensive understanding of advanced Reinforcement Learning (RL) concepts and algorithms, with a focus on Value Based Methods. Emphasis is placed on presenting relevant equations and references to elucidate these concepts effectively. %%UPDATE%%%%%%%%%%%%%%%%%
 
 \subsection{Value Based Methods}
-Value Based Methods in Reinforcement Learning focus on estimating the potential long-term rewards for different states or actions in a given environment. These methods differ from other RL strategies since they do not directly learn or define a policy. A policy is the process through which an agent chooses actions based on the current state. Instead, Value Based Methods concentrate on evaluating the 'value' of each state or state-action pair. This 'value' represents the expected total reward that the agent can obtain, beginning from that state or after executing a specific action. The goal is to employ these value estimations to steer the agent's decisions, encouraging actions that optimize these expected rewards. This approach is essential in identifying the most advantageous actions an agent can take to achieve its goals efficiently [3].\hfill \break 
+Value Based Methods in Reinforcement Learning focus on estimating the potential long-term rewards for different states or actions in a given environment. These methods differ from other RL strategies since they do not directly learn or define a policy. A policy is the process through which an agent chooses actions based on the current state. Instead, Value Based Methods focus on evaluating the 'value' of each state or state-action pair. This 'value' represents the expected total reward that the agent can obtain, beginning from that state or after executing a specific action. The goal is to employ these value estimations to steer the agent's decisions, encouraging actions that optimize these expected rewards. This approach is essential in identifying the most advantageous actions an agent can take to achieve its goals efficiently \cite{ref3}.\hfill \break 
 
-An example of value-based methods is Q-Learning. This off-policy algorithm aims to learn the value of an action in a specific state, bypassing the need for a model of the environment. It achieves this by learning the optimal policy indirectly through the value of the optimal action in each state.\hfill \break 
+An example of value-based methods is Q-Learning. This off-policy algorithm aims to learn the value of an action in a specific state, bypassing the need for a model of the environment. It achieves this by learning the optimal policy indirectly through the value of the best action in each state. An essential component of Q-Learning is its update equation, which iteratively refines the Q-values based on the agent's experiences.\hfill \break 
 
-\noindent The Q-Learning Equation is given by:
+\noindent The Q-Learning Update Equation is given by:
+
 \begin{equation*}
     Q^{new}(s, a) \leftarrow Q(s, a) + \alpha [R + \gamma \max_{a'} Q(s', a') - Q(s, a)]
 \end{equation*}
 
-In this equation, \( Q(s, a) \) signifies the current estimate of the value for taking action \( a \) in state \( s \), with \( \alpha \) as the learning rate, \( R \) as the immediate reward, \( \gamma \) as the discount factor, and \( \max_{a'} Q(s', a') \) representing the estimated value of the best possible future action in the new state \( s' \).\hfill \break 
+In this equation, \( Q(s, a) \) represents the current estimate of the value for taking action \( a \) in state \( s \), with \( \alpha \) as the learning rate, \( R \) as the immediate reward, \( \gamma \) as the discount factor, and \( \max_{a'} Q(s', a') \) represents the estimated value of the best possible future action in the new state \( s' \).\hfill \break 
 
 Another example is Value Iteration, used predominantly in Markov Decision Processes (MDPs). This algorithm iteratively updates the value of each state until convergence to the optimal value function is achieved. Value Iteration is especially effective in environments with a manageable state space and a known environmental model.\hfill \break 
 
@@ -76,10 +80,10 @@ Another example is Value Iteration, used predominantly in Markov Decision Proces
 
 Here, \( V^*(s) \) is the optimal value function for state \( s \), with \( P(s', r|s, a) \) denoting the transition probability and \( \gamma \) the discount factor.\hfill \break 
 
-In summary, value-based methods offer a structured approach for agents to make informed decisions. Through algorithms like Q-Learning and Value Iteration, value-based methods focus on maximizing expected cumulative rewards over time.
+In short, value-based methods offer a structured approach for agents to make informed decisions. Through algorithms like Q-Learning and Value Iteration, value-based methods focus on maximizing expected cumulative rewards over time.
 
 \subsection{Deep Q-Networks Algorithm}
-Deep Q-Networks (DQNs) are a pivotal advancement in the field of Reinforcement Learning (RL), effectively merging the foundational principles of Q-Learning with the sophisticated capabilities of deep neural networks [4]. This integration allows DQNs to excel in complex, high-dimensional environments, where traditional Q-Learning methods fall short. In essence, DQNs utilize deep learning to approximate the Q-function, which estimates the total expected rewards for taking certain actions in given states. This approach enables the handling of vast and intricate input spaces with greater efficiency and effectiveness. By incorporating neural networks, DQNs can generalize across a range of states, learning to navigate and make decisions in intricate environments with an enhanced capacity for interpreting and responding to diverse scenarios.\hfill \break 
+Deep Q-Networks (DQNs) are an advancement in the field of Reinforcement Learning, effectively merging the foundational principles of Q-Learning with the sophisticated capabilities of deep neural networks. This integration allows DQNs to excel in high-dimensional environments, where traditional Q-Learning methods fall short. In essence, DQNs utilize deep learning to approximate the Q-function, which estimates the total expected rewards for taking certain actions in given states. This approach enables the handling of vast and intricate input spaces with greater efficiency and effectiveness. By incorporating neural networks, DQNs can generalize across a range of states, learning to navigate and make decisions in intricate environments with an enhanced capacity for interpreting and responding to diverse scenarios as discussed in \cite{ref6}.\hfill \break 
 
 \noindent The core update equation of DQN builds upon the classical Q-Learning update rule, incorporating neural network parameters to enhance learning:
 
@@ -87,9 +91,13 @@ Deep Q-Networks (DQNs) are a pivotal advancement in the field of Reinforcement L
 Q^{new}(s, a; \theta) \leftarrow Q(s, a; \theta) + \alpha [R + \gamma \max_{a'} Q(s', a'; \theta^{-}) - Q(s, a; \theta)]
 \end{equation*}
 
-In this formula, \(Q(s, a; \theta)\) denotes the neural network's approximation of the action-value function, parametrized by \(\theta\). The term \(R\) represents the  reward, while, \(\gamma\) is the discount factor. The expression \(\max_{a'} Q(s', a'; \theta^{-})\) represents the estimated value of the best possible future action in the new state \(s'\), calculated using the target network parameters \(\theta^{-}\).\hfill \break 
+In this formula, \(Q(s, a; \theta)\) denotes the neural network's approximation of the action-value function, parameterized by \(\theta\). The term \(R\) represents the  reward, while, \(\gamma\) is the discount factor. The expression \(\max_{a'} Q(s', a'; \theta^{-})\) represents the estimated value of the best possible future action in the new state \(s'\), calculated using the target network parameters \(\theta^{-}\).\hfill \break 
 
-From my DQN implementation, the corresponding code snippet that implements this update rule is found in the \textit{"optimize\_model"} method of the \textit{"Standard\_DQNAgent"} class which is in the file \textit{"Experiment\_1\_Standard\_DQN"}.\newpage \noindent Specifically, the code lines that map to the above equation are: 
+From my DQN implementation, the corresponding code snippet that implements this update rule is found in the \textit{"optimize\_model"} method of the \textit{"Standard\_DQNAgent"} class.
+
+\hfill
+
+\noindent Specifically, the code lines that map to the above equation are: 
 
 \begin{figure}[h]
 \centering
@@ -126,28 +134,28 @@ The following pseudo code outlines the typical steps in a DQN algorithm, alignin
 \end{algorithmic}
 \end{algorithm}
 
-In summary, Deep Q-Networks (DQNs) represent a  leap forward in the field of Reinforcement Learning, combining the strengths of Q-Learning with that of deep neural networks. This combination has opened up new possibilities for agents to learn optimal policies in scenarios rich in complexity and variety. DQN's ability to approximate the value of actions across vast state spaces and its use of experience replay for efficient learning make it a powerful algorithm for solving challenging RL problems.
+To summarize, Deep Q-Networks (DQNs) leverage the power of neural networks to approximate action values across large state spaces and uses experience replay for efficient learning, making DQNs a highly effective solution for challenging reinforcement learning tasks.
 
 \subsection{Policy Based Methods}
 
-Policy Based Methods in Reinforcement Learning directly parameterize the policy, which assigns a probability to each action in a given state. Unlike Value Based Methods, which focus on learning a value function that is later used to determine a policy, Policy Based Methods aim to optimize the policy itself without the intermediate step of value estimation. This can be particularly advantageous in high-dimensional or continuous action spaces, where value functions are difficult to represent. \hfill \break 
+Policy Based Methods in Reinforcement Learning directly parameterize the policy, which assigns a probability to each action in a given state. Unlike Value Based Methods, which focus on learning a value function that is later used to determine a policy, Policy Based Methods aim to optimize the policy itself without the intermediate step of value estimation. This can be particularly advantageous in high-dimensional or continuous action spaces, where value functions are difficult to represent as can be seen in \cite{ref4}. \hfill \break 
 
-\noindent The equation for Policy Based Methods involves the policy gradient:
+\noindent Policy Based Methods use a specific approach to update the policy, known as the policy gradient method. The equation for this is:
 
 \begin{equation*}
     \nabla_{\theta} J(\theta) = \mathbb{E}_{\pi_{\theta}}[\nabla_{\theta} \log \pi_{\theta}(s, a) \cdot Q^{\pi_{\theta}}(s, a)]
 \end{equation*}
 
-Here, \(J(\theta)\) is the objective function, which is typically the expected return. The term \(\nabla_{\theta} J(\theta)\) represents the policy gradient, and \(\pi_{\theta}(s, a)\) denotes the policy, parameterized by \(\theta\), that gives the probability of taking action \(a\) in state \(s\). The function \(Q^{\pi_{\theta}}(s, a)\) is the action-value function under policy \(\pi_{\theta}\), used here to weight the gradient of the log-probability of the taken action. The expectation \(\mathbb{E}_{\pi_{\theta}}\) indicates that the average is taken over the distribution of states and actions determined by the policy.\hfill \break 
+In this equation, \(J(\theta)\) represents the objective function, typically the expected return. The term \(\nabla_{\theta} J(\theta)\) is the policy gradient, indicating the direction in which the policy parameters \(\theta\) should be adjusted to maximize \(J(\theta)\). The policy, denoted as \(\pi_{\theta}(s, a)\), gives the probability of selecting action \(a\) in state \(s\), and is parameterized by \(\theta\). \(Q^{\pi_{\theta}}(s, a)\) is the action-value function under the policy \(\pi_{\theta}\), reflecting the expected return for choosing action \(a\) in state \(s\) and following \(\pi_{\theta}\). This function is used to weight the gradient of the logarithm of the policy's probability for the taken action. The expectation \(\mathbb{E}_{\pi_{\theta}}\) signifies that the average is taken over the distribution of states and actions as determined by the policy, thereby guiding the optimization of the policy towards greater expected returns. \hfill \break 
 
-In contrast to Value Based Methods, Policy Based Methods directly manipulate the probability of selecting actions, which allows them to effectively handle situations with stochastic policies and continuous action spaces. The main differences between value-based methods are that policy-based methods do not learn a Q-Value Function and simply learn a policy directly, and policy-based methods can learn stochastic policies unlike value-based methods, which means they may take different actions given the same observation. This distinction allows policy-based methods to be more flexible in certain scenarios. Value Based Methods, often have to partition continuous action spaces and may struggle to represent the randomness inherent in some policies. Policy Based Methods often have better convergence properties and can learn stochastic policies, which is a significant advantage over Value Based Methods. However, they typically suffer from high variance in their estimates and often require more samples to achieve comparable results [5].\hfill \break
+In contrast to Value Based Methods, Policy Based Methods directly manipulate the probability of selecting actions, which allows them to effectively handle situations with stochastic policies and continuous action spaces. The main differences between value-based methods are that policy-based methods do not learn a Q-Value Function and simply learn a policy directly, and policy-based methods can learn stochastic policies unlike value-based methods, which means they may take different actions given the same observation as mentioned in \cite{ref7}. This distinction allows policy-based methods to be more flexible in certain scenarios. Value Based Methods, often have to partition continuous action spaces and may struggle to represent the randomness inherent in some policies. Policy Based Methods often have better convergence properties and can learn stochastic policies, which is a significant advantage over Value Based Methods. However, they typically suffer from high variance in their estimates and often require more samples to achieve comparable results .\hfill \break
 
 An example of a Policy Based Method is the \textit{REINFORCE} algorithm, which utilizes Monte Carlo methods to estimate the policy gradient. By adjusting the policy parameters in the direction suggested by the gradient, the algorithm seeks to maximize the expected cumulative rewards.\hfill \break 
 
-In summary, Policy Based Methods provide a different approach to Reinforcement Learning by optimizing the policy directly. This can lead to more natural learning in environments with complex action spaces and can introduce stochasticity in the policy, which can be beneficial in certain contexts. Despite their differences, both Policy Based and Value Based Methods contribute uniquely to the RL domain, and the choice between them depends on the specific requirements of the problem at hand.
+In essence, Policy Based Methods provide a different approach to Reinforcement Learning by optimizing the policy directly. This can lead to more natural learning in environments with complex action spaces and can introduce stochasticity in the policy, which can be beneficial in certain contexts. Despite their differences, both Policy Based and Value Based Methods contribute uniquely to the RL domain, and the choice between them depends on the specific requirements of the problem at hand.
 
 \subsection{Actor-Critic Methods}
-Actor-Critic Methods in Reinforcement Learning combine the concepts of value-based and policy-based methods. Utilizing two distinct models, the Actor, which suggests actions based on the current state, and the Critic, which evaluates these actions using a value function, Actor-Critic methods effectively leverage the strengths of both policy optimization and value function estimation [6].\hfill \break
+Actor-Critic Methods combine the concepts of value-based and policy-based methods. Utilizing two distinct models, the Actor, which suggests actions based on the current state, and the Critic, which evaluates these actions using a value function, Actor-Critic methods effectively leverage the strengths of both policy optimization and value function estimation \cite{ref5}.\hfill \break
 
 \noindent The Actor-Critic architecture can be represented with the following equations:
 
@@ -159,17 +167,19 @@ Actor-Critic Methods in Reinforcement Learning combine the concepts of value-bas
     \textbf{Critic: } V^\pi(s, \omega) = \mathbb{E}[R|S=s, \omega]
 \end{equation*}
 \break
-Here, the Actor, defined by the policy \(\pi(a|s, \theta)\), dictates the likelihood of selecting each possible action \(a\) in a given state \(s\). Conversely, the Critic estimates the value function \(V^\pi(s, \omega)\), reflecting the expected return from state \(s\) under the current policy \(\pi\). The Actor is responsible for action selection, while the Critic assesses the quality of actions taken, guiding the Actor towards better decisions.\hfill \break
 
-\subsubsection{Stochastic Actor-Critic Algorithms}\hfill \break \break
-Stochastic Actor-Critic Algorithms in Reinforcement Learning are a subset of Actor-Critic methods where the policy (Actor) is stochastic in nature. These algorithms model the policy as a probability distribution over actions, enabling the agent to explore a range of actions with varying probabilities. This approach is particularly beneficial in environments where the optimal action is not deterministic or when exploration is crucial for learning.\hfill \break
+Here, the Actor, defined by the policy \(\pi(a|s, \theta)\), dictates the likelihood of selecting each possible action \(a\) in a given state \(s\). In contrast, the Critic estimates the value function \(V^\pi(s, \omega)\), reflecting the expected return from state \(s\) under the current policy \(\pi\). The Actor is responsible for action selection, while the Critic assesses the quality of actions taken, guiding the Actor towards better decisions.\hfill \break
+
+\subsubsection{Stochastic Actor-Critic Algorithms}\hfill \break 
+
+Stochastic Actor-Critic Algorithms are a subset of Actor-Critic methods where the policy (Actor) is stochastic in nature. These algorithms model the policy as a probability distribution over actions, enabling the agent to explore a range of actions with varying probabilities. This approach is particularly beneficial in environments where the optimal action is continuous or when exploration is crucial for learning.\hfill \break
 
 In these methods, the Actor outputs probabilities for each action in a given state, and actions are selected based on these probabilities. The Critic evaluates the actions by estimating the value function, providing feedback to the Actor for policy improvement. The stochastic nature of the policy in these methods allows for effective exploration of the action space, making it possible to discover and learn optimal strategies even in complex environments.\hfill \break
 
-One key advantage of Stochastic Actor-Critic Algorithms is their ability to capture multiple potentially good actions in a given state, allowing the agent to learn more robust and generalizable policies.
+One key advantage of Stochastic Actor-Critic Algorithms is their ability to capture multiple potentially good actions in a given state, allowing the agent to learn more robust and generalizable policies. \hfill \break
 
-\subsubsection{PPO-GAE: An Example of a Stochastic Actor-Critic Algorithm}\hfill \break \break
-The Proximal Policy Optimization with Generalized Advantage Estimation (PPO-GAE) algorithm is a good example of a Stochastic Actor-Critic method. PPO-GAE optimizes a stochastic policy in a way that carefully balances between exploration and exploitation, using a clipped surrogate objective function and Generalized Advantage Estimation.\hfill \break
+\noindent \textbf{\textit{PPO-GAE}: An Example of a Stochastic Actor-Critic Algorithm}\hfill \break \break
+The Proximal Policy Optimization with Generalized Advantage Estimation (PPO-GAE) algorithm \cite{ref8} is a good example of a Stochastic Actor-Critic method. PPO-GAE optimizes a stochastic policy in a way that carefully balances between exploration and exploitation, using a clipped surrogate objective function and Generalized Advantage Estimation.\hfill \break
 
 \noindent The core update equations for PPO-GAE are:
 
@@ -214,11 +224,13 @@ Here, the surrogate loss for PPO's objective \( L^{CLIP}(\theta) \) is computed.
 
 The code for Generalized Advantage Estimation (GAE) calculates the advantage estimation \( \hat{A}_t \) using the temporal difference error (`delta`). This part of the code aligns with the GAE equation and is crucial for efficiently estimating the advantages over multiple time steps. This snippet can be found in the \textit{"RunningMem"} class.\hfill \break
 
-In summary, the PPO-GAE algorithm, showcases the effective use of stochastic policies in complex environments. The algorithm's balance between exploring diverse strategies and exploiting actions makes it an optimal choice for continuous action spaces.
+The PPO-GAE algorithm showcases the effective use of stochastic policies in complex environments. The algorithm's balance between exploring diverse strategies and exploiting actions makes it an optimal choice for continuous action spaces.
 
-\subsubsection{DDPG: An Example of a Deterministic Actor-Critic Algorithm}\hfill \break
+\subsubsection{Deterministic Actor-Critic Algorithms}\hfill \break 
 
-Deterministic policies, in contrast to stochastic ones, provide a direct mapping from states to actions. This approach is exemplified in algorithms like the \textit{Deep Deterministic Policy Gradient (DDPG)}. Such methods excel in scenarios with continuous action spaces, offering greater sample efficiency by reducing the variance inherent in action selection. Deterministic policies streamline the learning process, particularly in environments where a clear and consistent response is preferable.\hfill \break
+Deterministic policies, in contrast to stochastic ones, provide a direct mapping from states to actions. This approach is exemplified in algorithms like \textit{Deep Deterministic Policy Gradient (DDPG)} \cite{ref9}. Such methods excel in scenarios with continuous action spaces, offering greater sample efficiency by reducing the variance inherent in action selection. Deterministic policies streamline the learning process, particularly in environments where a clear and consistent response is preferable.\hfill \break
+
+\noindent \textbf{\textit{DDPG}: An Example of a Deterministic Actor-Critic Algorithm}\hfill \break
 
 \noindent The core update equations for DDPG are:
 
@@ -245,7 +257,7 @@ Here, \(Q(s, a)\) is the action-value function estimated by the Critic. The Crit
 \label{fig:dqn_code}
 \end{figure}
 
-This part of the code demonstrates the optimization of both the Actor and Critic networks. The line `Qvals = critic(states, actions)` aligns with the computation of \(Q(s, a)\), while the calculation of `actor\_loss` implements the gradient ascent on the Actor network, reflecting the policy gradient update (\(\nabla_{\theta^\mu} J\)).\hfill \break
+This part of the code demonstrates the optimization of both the Actor and Critic networks. The reset of the Ornstein-Uhlenbeck noise process (`ou\_noise.reset()`) is crucial for introducing exploration in the deterministic policy, ensuring that the agent can effectively explore different strategies. The line `Qvals = critic(states, actions)` aligns with the computation of \(Q(s, a)\), while the calculation of `actor\_loss` implements the gradient ascent on the Actor network, reflecting the policy gradient update (\(\nabla_{\theta^\mu} J\)).\hfill \break
 
 \begin{figure}[h]
 \centering
@@ -256,15 +268,22 @@ This part of the code demonstrates the optimization of both the Actor and Critic
 
 This code snippet from the \textit{"PolicyNet"} class corresponds to the forward pass of the Actor Network, which is critical for implementing the policy function \(\mu(s)\). The function scales and clips the output to ensure that the actions remain within feasible bounds, directly reflecting the deterministic policy approach in DDPG.\hfill \break
 
-In summary, DDPG is a great example of a deterministic Actor-Critic framework, offering a stable and efficient approach for problems in continuous action spaces. Its structure allows for direct action determination while maintaining the benefits of Actor-Critic methods.\hfill \break
+This shows how DDPG is a great example of a deterministic Actor-Critic framework, offering a stable and efficient approach for problems in continuous action spaces. Its structure allows for direct action determination while maintaining the benefits of Actor-Critic methods.\hfill \break
 
-In conclusion, Actor-Critic methods in Reinforcement Learning offer a dynamic and robust framework, efficintly blending policy-based and value-based strategies. Stochastic policies, like PPO-GAE, are ideal for environments demanding extensive exploration and adaptability, as they allow for a probabilistic exploration of actions. In contrast, deterministic policies, as seen in DDPG, are more suited to environments with continuous action spaces where consistency and efficiency are paramount, providing a direct state-to-action mapping. The choice between these approaches depends on the specific requirements of the environment and the nature of the task, with each offering distinct advantages in terms of exploration, adaptability, and precision.
+\subsubsection{Conclusion (Policy Based Methods)} \hfill \break
+
+In conclusion, Actor-Critic methods combine policy-based and value-based approaches, offering flexible and effective solutions for various scenarios. Both stochastic methods, like PPO-GAE, and deterministic approaches, such as DDPG, are well-suited for environments with continuous action spaces. Stochastic methods are particularly advantageous for tasks requiring extensive exploration and adaptability, while deterministic methods provide more direct and consistent action mapping, with exploration facilitated through specific techniques like the Ornstein-Uhlenbeck process. The choice between these types depends on the environment's specific demands and the task's goals.
 
 \section{Methodology}
+
+\hfill \break
+\textbf{Main Libraries Used:}
+Pytorch, Gym, Numpy, Matplotlib, Collections, and OS. 
+
 \subsection{Experiment 1}
 \textbf{Problem Addressed:} OpenAI Gym LunarLander (Discrete Actions) - "LunarLander-v2"
 
-The "LunarLander-v2" environment in OpenAI Gym simulates the challenge of safely landing a spacecraft on the lunar surface. The agent controls the spacecraft's thrusters to safely land it on a designated pad. The state of the environment includes:
+The "LunarLander-v2" environment in OpenAI Gym simulates the challenge of safely landing a spacecraft on the lunar surface. The agent controls the spacecraft's thrusters to safely land it between two flags. The state of the environment includes:
 \begin{itemize}
     \item Lander's position
     \item Velocity
@@ -274,16 +293,17 @@ The "LunarLander-v2" environment in OpenAI Gym simulates the challenge of safely
 \end{itemize}
 The agent must learn to balance fuel efficiency with the safety and accuracy of the landing.
 
-\noindent The actions in this environment are discrete, comprising choices such as:
+\noindent The actions in this environment are discrete, comprising of:
 \begin{itemize}
     \item Do nothing
     \item Fire the left orientation engine
     \item Fire the main engine
     \item Fire the right orientation engine
 \end{itemize}
-The rewards are structured to encourage a safe landing between the flags, penalizing excessive fuel usage and crashes.
+The reward structure is designed to encourage a safe and fuel-efficient landing. Positive rewards are given for decreasing distance to the landing pad and making a successful landing, while penalties are incurred for moving away from the landing pad, excessive fuel usage, and crashing.
 
-\noindent \textbf{Validation Measures:} The implementation aimed to develop an agent capable of achieving an average score of 195 or above over the last 50 episodes.
+\hfill \break
+\noindent \textbf{Validation Measure:} The implementation aimed to develop an agent capable of achieving an average score of 195 or above over the last 50 episodes.
 
 \subsubsection{Implementing Standard DQN} \hfill \break
 \vspace{-12pt}
@@ -292,7 +312,7 @@ The rewards are structured to encourage a safe landing between the flags, penali
 \centering
 \begin{tabular}{|l|l|}
 \hline
-Hyperparameter & Value \\ \hline
+\textbf{Hyperparameter} & \textbf{Value} \\ \hline
 GAMMA & 0.99 \\ \hline
 BATCH\_SIZE & 128 \\ \hline
 BUFFER\_SIZE & 10000 \\ \hline
@@ -307,7 +327,7 @@ EPS\_DECAY & 0.995 \\ \hline
 
 \vspace{-12pt}
 
-\noindent \textbf{Model Architecture:} The DQN architecture consists of fully connected layers with ReLU activation functions, designed to approximate the optimal Q-value function:
+\noindent \textbf{Model Architecture:} The DQN architecture consists of 3 fully connected layers with ReLU activation functions, designed to approximate the optimal Q-value function:
 
 \begin{figure}[h]
 \centering
@@ -357,7 +377,7 @@ EPS\_DECAY & 0.995 \\ \hline
 \vspace{-18pt}
 
 \noindent\textbf{Model Architecture:}
-The neural network in Double DQN consists of three fully connected layers, with ReLU activation functions between layers:
+The neural network in Double DQN also consists of three fully connected layers, with ReLU activation functions between layers:
 
 \begin{figure}[h]
 \centering
@@ -423,7 +443,7 @@ EPS\_DECAY & 0.995 \\ \hline
 
 \noindent The Noisy DQN introduces randomness directly into the network's architecture to enhance exploration. This approach eliminates the need for external exploration mechanisms like epsilon-greedy strategies. \hfill \break
 
-\noindent\textbf {NoisyLinear Layer:} The `NoisyLinear` layer is a modified linear layer with noise added to its weights and biases. It uses random noise during training, while reverting to deterministic behavior during evaluation:
+\noindent\textbf {NoisyLinear Layer:} The `NoisyLinear` layer is a modified linear layer with noise added to its weights and biases. It uses random noise during training, while reverting to deterministic behaviour  during evaluation:
 
 \begin{figure}[h]
 \centering
@@ -442,9 +462,9 @@ EPS\_DECAY & 0.995 \\ \hline
 \end{figure}
 
 \noindent\textbf{Optimization Process:}
-The optimization process in Noisy DQN resembles standard DQN but leverages the noise-infused network for learning. The loss calculation and backpropagation methods remain consistent with teh standard DQN approach. \hfill \break 
+The optimization process in Noisy DQN resembles standard DQN but leverages the noise-infused network for learning. The loss calculation and backpropagation methods remain consistent with the standard DQN approach. \hfill \break 
 
-These aspects highlight the innovative approach of Noisy DQN in integrating exploration within the network's architecture, eliminating the need for external exploration mechanisms and providing a novel way to tackle the reinforcement learning problem.
+These aspects demonstrate the unique strategy of Noisy DQNs in embedding exploration directly within the network's architecture, thus removing the dependence on external exploration strategies. This approach offers a distinct method for addressing challenges in reinforcement learning.
 
 \newpage
 
@@ -469,7 +489,7 @@ EPS\_DECAY & 0.995 \\ \hline
 
 \vspace{-10pt}
 
-\noindent The Combined DQN model represents a combination of the Double and Noisy DQN approaches. This architecture integrates the \textit{`NoisyLinear`} layers from the Noisy DQN, which introduce stochasticity into the network, enhancing exploration capabilities. Simultaneously, it adopts the \textit{`optimize\_model`} function from the Double DQN, utilizing separate networks for action selection and value evaluation to mitigate overestimation bias in Q-values. Additionally, the combined model leverages the epsilon-greedy strategy for action selection and the efficient experience replay mechanism from both approaches, ensuring a balanced blend of exploration and exploitation. This combination provides a comprehensive solution that leverages both intrinsic exploration through network noise, accurate Q-value estimation, and effective learning from diverse experiences. The Combined DQN model is particularly effective in complex decision-making scenarios like the "LunarLander-v2" environment. It should be noted that the code for the \textit{`NoisyLinear`} layers, the \textit{`optimize\_model`} function, and other components like the \textit{'select\_action'} strategy and the \textit{'replay\_memory'} management remains consistent with those outlined in the respective Noisy and Double DQN sections as previously mentioned and explained. \hfill \break
+\noindent The Combined DQN model represents a combination of the Double and Noisy DQN approaches. This architecture integrates the \textit{`NoisyLinear`} layers from the Noisy DQN, which introduce stochasticity into the network, enhancing exploration capabilities. Simultaneously, it adopts the \textit{`optimize\_model`} function from the Double DQN, utilizing separate networks for action selection and value evaluation to mitigate overestimation bias in Q-values. Additionally, the combined model leverages the epsilon-greedy strategy for action selection and the efficient experience replay mechanism from both approaches, ensuring a balanced blend of exploration and exploitation. This combination provides a comprehensive solution that leverages both intrinsic exploration through network noise, accurate Q-value estimation, and effective learning from diverse experiences. It should be noted that the code for the \textit{`NoisyLinear`} layers, the \textit{`optimize\_model`} function, and other components like the \textit{'select\_action'} strategy and the \textit{'replay\_memory'} management remains consistent with those outlined in the respective Noisy and Double DQN sections as previously mentioned and explained. \hfill \break
 
 \noindent\textbf{Model Architecture:}
 The Combined DQN architecture blends NoisyLinear layers with Double DQN principles:
@@ -481,11 +501,132 @@ The Combined DQN architecture blends NoisyLinear layers with Double DQN principl
 \label{fig:dqn_code}
 \end{figure}
 
-In summary, the Combined DQN (Double \& Noisy) approach presents a sophisticated solution for the LunarLander-v2 challenge, leveraging the strengths of both Double and Noisy DQN methodologies to achieve efficient learning and effective exploration. The implementation aims to balance fuel efficiency with safe and precise landing, reflecting the complex demands of the LunarLander environment.
+To summarize, the Combined DQN (Double \& Noisy) model effectively harnesses the benefits of both Double and Noisy DQN strategies. This integration results in a robust approach for the LunarLander-v2 challenge, optimizing both learning efficiency and exploration capabilities.
 
 \subsection{Experiment 2}
-\textbf{Problem Addressed:}
+\textbf{Problem Addressed:} OpenAI Gym LunarLander (Continuous Actions) - "LunarLanderContinuous-v2"\hfill \break
 
-\printbibliography[title=References]
+In the "LunarLanderContinuous-v2" environment, OpenAI Gym presents the task of landing a spacecraft on the lunar surface with continuous action control. This version requires more precise and variable control of the spacecraft's thrusters, adding complexity to the landing maneuver. The agent needs to manage continuous thrust levels for both orientation and descent, aiming for a safe and fuel-efficient landing. The environment's state includes:
+\begin{itemize}
+    \item Lander's position
+    \item Velocity
+    \item Angle
+    \item Angular velocity
+    \item Leg contact with the ground
+\end{itemize}
+The agent's objective remains to achieve a safe, fuel-efficient landing, but with a continuous range of possible thruster outputs. \hfill \break
+
+\noindent The continuous action space in this environment involves:
+\begin{itemize}
+    \item Adjusting the main engine's thrust
+    \item Controlling the directional thrusters for orientation
+\end{itemize}
+ \hfill \break
+\noindent \textbf{Validation Measure:} Similarly to Experiment 1. The implementation aimed to develop an agent capable of achieving an average score of 195 or above over the last 50 episodes.
+
+\subsubsection{Implementing a Stochastic policy approach (PPO-GAE)} \hfill \break
+
+In the PPO-GAE implementation for "LunarLanderContinuous-v2", the Actor Network, as partially shown in Figure 2, plays a crucial role in proposing actions based on the current state, outputting a probability distribution characterized by mean (\textit{loc}) and standard deviation (\textit{scale}). This network is constructed with fully connected layers followed by \textit{Tanh} activation functions, resulting in the final layer that defines the action distribution. Complementing the Actor, the Critic Network evaluates the proposed actions as can be seen in Figure 17 below. It is responsible for predicting the value function, a measure of the expected return from a given state under the policy in action. The Critic's architecture mirrors the Actor's, consisting of fully connected layers with \textit{Tanh} activations, outputting a single value indicative of the state's value. 
+
+Optimization and Loss Computation in PPO-GAE, as detailed in Figure 3, involve a surrogate objective function to update the Actor network, where the ratio of new and old probabilities of actions is calculated, and a clipping mechanism is employed to moderate policy updates. The Generalized Advantage Estimation (GAE), illustrated in Figure 4, is a key component of the PPO-GAE approach. GAE calculates the advantage estimation, effectively balancing bias and variance in the computation. The Critic Network undergoes updates by minimizing the temporal difference error, which aligns the predicted state values with the computed target values. Training comprises alternating phases of environment interaction for data sampling and network optimization. The Training Loop iteratively performs actions in the environment and stores the resulting experiences. Subsequently, during training epochs, these experiences are processed to compute advantages and update both networks. Reaching or surpassing the validation measure indicates that the agent has successfully solved the environment.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Hyperparameter} & \textbf{Value} \\ \hline
+GAMMA & 0.99 \\ \hline
+LAMBDA & 0.95 \\ \hline
+EPSILON & 0.2 \\ \hline
+BATCH\_SIZE & 64 \\ \hline
+EPOCH\_REPEAT & 10 \\ \hline
+LEARNING\_RATE (Actor) & 0.0003 \\ \hline
+LEARNING\_RATE (Critic) & 0.0003 \\ \hline
+\end{tabular}
+\caption{PPO-GAE Hyperparameters}
+\label{tab:ppo_gae_hyperparameters}
+\end{table}
+
+\vspace{-20pt}
+
+\begin{figure}[h]
+\centering
+\fbox{\includegraphics[width=0.49\textwidth,height=1\textheight,keepaspectratio]{ss_17.png}}
+\caption{Code snippet of Critic Network}
+\label{fig:dqn_code}
+\end{figure}
+
+\subsubsection{Implementing a Deterministic policy approach (DDPG)} \hfill \break
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Hyperparameter & Value \\ \hline
+GAMMA & 0.99 \\ \hline
+BATCH\_SIZE & 64 \\ \hline
+BUFFER\_SIZE & 10000 \\ \hline
+TAU & 0.01 \\ \hline
+LEARNING\_RATE (Actor) & 0.0003 \\ \hline
+LEARNING\_RATE (Critic) & 0.0003 \\ \hline
+\end{tabular}
+\caption{DDPG Hyperparameters}
+\label{tab:ddpg_hyperparameters}
+\end{table}
+
+The update function (Figure 5), a pivotal aspect of DDPG, involves calculating the loss between predicted and target Q-values and updating both the Actor and Critic networks. The Actor is updated using policy gradients to maximize the expected return, as partially shown in Figure 6, which illustrates a snippet of the forward pass through the network. Meanwhile, the Critic is trained to minimize the temporal difference error, ensuring the convergence of the Actor's policy towards optimality. The Replay Memory, integral to the training, stores and samples diverse, uncorrelated experiences, enhancing the learning process. Additionally, the Ornstein-Uhlenbeck process is used for action exploration, introducing time-correlated noise to the actions, aiding in effective exploration of the action space. The training loop involves iteratively applying actions, accumulating rewards, and updating the networks, continuing until the agent achieves a predefined validation measure.
+
+\section{Results and Discussion}
+\subsection{Experiment 1}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Model           & Episodes to Solve \\ \hline
+Standard DQN    & 546               \\ \hline
+Double DQN      & 462               \\\hline
+Noisy DQN       & 422               \\\hline
+Combined DQN    & 431               \\ \hline
+\end{tabular}
+\caption{Number of episodes required for each model to solve the LunarLander-v2 environment.}
+\label{tab:ddpg_hyperparameters}
+\end{table}
+
+In the ``LunarLander-v2'' environment, the Noisy DQN emerged as the most efficient model, solving the challenge in 422 episodes, which is 22.7\% more quickly than the Standard DQN at 546 episodes. The Double DQN model also displayed notable efficiency, reaching the solution in 462 episodes, approximately 15.4\% faster than the Standard DQN. The Combined DQN (Double \& Noisy DQN) achieved its goal in 431 episodes, standing 21.1\% faster than the Standard DQN. These figures underscore the substantial improvements that noise injection and overestimation bias correction contribute to the efficacy of DQN models, as showcased in Figure 18.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.49\textwidth,keepaspectratio]{ss_18.png}
+\caption{Performance comparison of DQN models in the LunarLander-v2 environment.}
+\label{fig:dqn_code}
+\end{figure}
+
+\subsection{Experiment 2}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Model                       & Episodes to Solve \\ \hline
+Stochastic Policy (PPO-GAE) & 190               \\ \hline
+Deterministic Policy (DDPG) & 449               \\ \hline
+\end{tabular}
+\caption{Number of episodes required to solve the LunarLanderContinuous-v2 environment.}
+\label{tab:ddpg_hyperparameters}
+\end{table}
+
+In the LunarLanderContinuous-v2 environment, the Stochastic Policy approach using PPO-GAE solved the task in 190 episodes, demonstrating a significant advantage in efficiency over the Deterministic Policy approach using DDPG, which required 449 episodes to reach the solution. The PPO-GAE approach was more than 57\% faster compared to the DDPG method. This efficiency gain emphasizes the effectiveness of stochastic policy methods in environments with continuous action spaces. Figure 19 provides a visual representation of the learning curves for each method, illustrating the quicker convergence of the PPO-GAE approach to the solution threshold. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.49\textwidth,keepaspectratio]{ss_19.png}
+\caption{Combined learning curves of the PPO-GAE and DDPG models in the LunarLanderContinuous-v2 environment.}
+\label{fig:experiment2_combined_graph}
+\end{figure}
+
+\newpage
+
+\printbibliography
+
 \end{document}
-\endinput
